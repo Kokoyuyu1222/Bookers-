@@ -1,0 +1,19 @@
+<div class="row">
+	<div class="container-fluid">
+	<div class="container" style="padding-top: 60px;">
+	<div class="text-center">
+   <h1>welcome to <span class="glyphicon glyphicon-book" aria-hidden="true"></span>Bookers !!</h1>
+   <p>In <span class="glyphicon glyphicon-book" aria-hidden="true"></span>Bookers,</p>
+   <p>you can share and exchange your opinions , inpressions , and emotionsabout various books!</p>
+   <div class="sign">
+   	<% if user_signed_in? %>
+      <button type="button" class="btn btn-primary btn-lg btn-block" style="margin-bottom: 0;"><%= link_to 'Log in', user_path(current_user.id) %></button>
+      <button type="button" class="btn btn-success btn-lg btn-block" style="margin-bottom: 0;"><%= link_to 'Log in',user_path(current_user.id)  %></button>
+   <% else %>
+   <button type="button" class="btn btn-primary btn-lg btn-block" style="margin-bottom: 0;"><%= link_to 'Log in',
+   new_user_session_path %></button>
+   <button type="button" class="btn btn-success btn-lg btn-block" style="margin-bottom: 0;"><%= link_to 'Log in', new_user_registration_path %></button>
+   <% end %>
+</div>
+</div>
+</div>
