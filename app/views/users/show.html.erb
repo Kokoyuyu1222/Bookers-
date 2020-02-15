@@ -1,66 +1,66 @@
  <% if flash[:notice] %>
-      <div class="flash">
-        <%= flash[:notice] %>
-      </div>
-    <% end %>
+ <div class="flash">
+  <%= flash[:notice] %>
+</div>
+<% end %>
 <main>
   <div class= "row">
-  <div class="col-xs-3">
-    <div class="clearfix">
-    <div class="text-center">
-      <h2>User info</h2>
-      <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg',  fallback: "no_image.jpg",size:10*10 %>
-      <table class="table">
-  <tr><td>name</td><td><%= current_user.name %></td></tr>
-  <tr><td>introduction</td><td><%= current_user.introduction %></td></tr>
-</table>
-  <%= link_to edit_user_path(current_user.id), class: "btn btn-default btn-lg btn-block" do %>
-        <i class="glyphicon glyphicon-wrench"></i>
-      <% end %>
+    <div class="col-xs-3">
+      <div class="clearfix">
+        <div class="text-center">
+          <h2>User info</h2>
+          <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg',  fallback: "no_image.jpg",size:10*10 %>
+          <table class="table">
+            <tr><td>name</td><td><%= current_user.name %></td></tr>
+            <tr><td>introduction</td><td><%= current_user.introduction %></td></tr>
+          </table>
+          <%= link_to edit_user_path(current_user.id), class: "btn btn-default btn-lg btn-block" do %>
+          <i class="glyphicon glyphicon-wrench"></i>
+          <% end %>
 
-      <div class="text-center">
-        <h2><strong>New book</strong></h2>
-        <%= form_for(@book_new) do |f| %>
-        <% if @book_new .errors.any? %>
-        <div class="alert alert-warning">
-          <ul>
-            <% @book_new.errors.full_messages.each do |messege| %>
-            <li><%= messege %></li>
+          <div class="text-center">
+            <h2><strong>New book</strong></h2>
+            <%= form_for(@book_new) do |f| %>
+            <% if @book_new .errors.any? %>
+            <div class="alert alert-warning">
+              <ul>
+                <% @book_new.errors.full_messages.each do |messege| %>
+                <li><%= messege %></li>
+                <% end %>
+              </ul>
+            </div>
             <% end %>
-          </ul>
-        </div>
-        <% end %>
-        <h4>title</h4>
-        <%= f.text_field :title %>
-        <h4>opinion</h4>
-        <%= f.text_area :body %>
-        
-        <div class="actions row"><button type="submit" class="btn btn-primary btn-lg btn-block">Create Book</button></div>
-        <% end %>
+            <h4>title</h4>
+            <%= f.text_field :title %>
+            <h4>opinion</h4>
+            <%= f.text_area :body %>
+            
+            <div class="actions row"><button type="submit" class="btn btn-primary btn-lg btn-block">Create Book</button></div>
+            <% end %>
 
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-  <div class="col-xs-9">
-    <div>
+    <div class="col-xs-9">
+      <div>
        <h1>Books</h1>
        <table class="table">
         <th></th>
         <th>Title</th>
         <th>Opinion</th>
-      <% if @book.present? %>
-      <% @book.each do |book| %>
-      <tr>
-      <td><%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" ,size:5*5%></td>
-      <td><%= link_to book.title, book_path(book.id) %></td>
-      <td><%= book.body %></td>
-      <% if @user.id == current_user.id %>
-    </tr>
-      <% end %>
-      <% end %>
-      <% end %>
-    </table>
+        <% if @book.present? %>
+        <% @book.each do |book| %>
+        <tr>
+          <td><%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" ,size:5*5%></td>
+          <td><%= link_to book.title, book_path(book.id) %></td>
+          <td><%= book.body %></td>
+          <% if @user.id == current_user.id %>
+        </tr>
+        <% end %>
+        <% end %>
+        <% end %>
+      </table>
     </div>
   </div>
 </div>
