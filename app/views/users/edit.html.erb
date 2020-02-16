@@ -1,17 +1,18 @@
- <% if flash[:notice] %>
- <div class="flash">
+<% if flash[:notice] %>
+<div class="flash">
   <%= flash[:notice] %>
 </div>
 <% end %>
 
 <div>
-  <h2 >プロフィール編集</h2>
+  <h2 >User info</h2>
 </div>
 <div>
   <%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
-  <div class="alert alert-warning">
+  <div class="alert alert-error">
     <ul>
+      <li><%= @user.errors.count %> errors prohibited this obj from being saved:"</li>
       <% @user.errors.full_messages.each do |messege| %>
       <li><%= messege %></li>
       <% end %>

@@ -1,59 +1,60 @@
 <main>
-  <div class="low">
-    <div class="col-xs-3">
-      <div class="pull-left">
-        <div class="clearfix">
-    <div class="text-center">
-        <h2>User info</h2>
-        <%= attachment_image_tag current_user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg",size:10*10 %>
-        <table class="table">
-  <tr><td>name</td><td><%= current_user.name %></td></tr>
-  <tr><td>introduction</td><td><%= current_user.introduction %></td></tr>
-</table>
- <%= link_to edit_user_path(current_user.id), class: "btn btn-default btn-lg btn-block" do %>
-        <i class="glyphicon glyphicon-wrench"></i>
-      <% end %>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-3">
+        <div class="pull-left">
+          <div class="clearfix">
+            <div class="text-center">
+              <h2>User info</h2>
+              <%= attachment_image_tag current_user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg",size:10*10 %>
+              <table class="table">
+                <tr>
+                  <td>name</td>
+                  <td><%= current_user.name %></td>
+                </tr>
+                <tr>
+                  <td>introduction</td>
+                  <td><%= current_user.introduction %></td>
+                </tr>
+              </table>
+              <% if user_signed_in? %>
+              <%= link_to edit_user_path(current_user.id), class: "btn btn-default btn-lg btn-block" do %>
+              <i class="glyphicon glyphicon-wrench"></i>
+              <% end %>
+              <% end %>
 
-        <h2><strong>New book</strong></h2>
-        <%= form_for(@book) do |f| %>
-        <% if @book.errors.any? %>
-        <div class="alert alert-warning">
-          <ul>
-            <% @book.errors.full_messages.each do |messege| %>
-            <li><%= messege %></li>
-            <% end %>
-          </ul>
+              <h2><strong>New book</strong></h2>
+              <%= form_for(@book) do |f| %>
+              <h4>title</h4>
+              <%= f.text_field :title %>
+              <h4>opinion</h4>
+              <%= f.text_area :body %>
+
+              <div class="actions row"><button type="submit" class="btn btn-primary btn-lg btn-block">Create Book</button></div>
+              <% end %>
+            </div>
+          </div>
         </div>
-        <% end %>
-        <h4>title</h4>
-        <%= f.text_field :title %>
-        <h4>opinion</h4>
-        <%= f.text_area :body %>
-
-        <div class="actions row"><button type="submit" class="btn btn-primary btn-lg btn-block">Create Book</button></div>
-        <% end %>
       </div>
-    </div>
-  </div>
-</div>
 
-    <div class="col-xs-9">
-      <div>
-       <% provide(:user, 'All users') %>
-       <h1>Users</h1>
-       <table class="table">
-       <th>image</th>
-       <th>name</th>
-       <th></th>
-        <% @users.each do |user| %>
-        <tr>
-        <td><%= attachment_image_tag user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" ,size:5*5%></td>
-        <td><%= user.name %></td>
-        <td><%=  link_to "show", user %></td>
-      </tr>
+      <div class="col-xs-9">
+        <div>
+         <% provide(:user, 'All users') %>
+         <h1>Users</h1>
+         <table class="table">
+           <th>image</th>
+           <th>name</th>
+           <th></th>
+           <% @users.each do |user| %>
+           <tr>
+            <td><%= attachment_image_tag user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" ,size:5*5%></td>
+            <td><%= user.name %></td>
+            <td><%=  link_to "Show", user %></td>
+          </tr>
           <% end %>
         </table>
       </div>
     </div>
   </div>
+</div>
 </main>

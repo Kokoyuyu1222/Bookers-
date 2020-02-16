@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :ensure_correct_user, {only: [:edit, :update]}
+
   def index
     @users = User.all
     @book = Book.new
@@ -8,7 +10,7 @@ class UsersController < ApplicationController
   def show
     @book_new = Book.new
     @user = User.find(params[:id])
-    @book = @user.books
+    @books =Book.where(user_id: @user.id)
   end
 
   def edit
@@ -17,11 +19,12 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
+    @user_id = current_user.id
     if @user.update(user_params)
       flash[:notice] = "You have updated user successfully.."
-     redirect_to user_path(@user.id)
-   else
-     render :edit
+      redirect_to user_path(@user.id)
+    else
+     render "edit"
    end
  end
 
@@ -32,5 +35,11 @@ class UsersController < ApplicationController
 end
 def book_params
   params.require(:book).permit(:title, :body)
+end
+def ensure_correct_user
+  if current_user.id != params[:id].to_i
+    flash[:notice] = "権限がありません"
+    redirect_to user_path(current_user.id)
+  end
 end
 end
